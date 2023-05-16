@@ -8,3 +8,14 @@ C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVol
 C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.exe
 C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.pdb
 C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.Form1.resources
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\bin\Debug\proiectVolovici.exe.config
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\bin\Debug\proiectVolovici.exe
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\bin\Debug\proiectVolovici.pdb
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.csproj.AssemblyReference.cache
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.csproj.SuggestedBindingRedirects.cache
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.Form1.resources
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.Properties.Resources.resources
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.csproj.GenerateResource.cache
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.csproj.CoreCompileInputs.cache
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.exe
+C:\Users\redfear\Source\Repos\proiectVolovici\proiectVolovici\obj\Debug\proiectVolovici.pdb
