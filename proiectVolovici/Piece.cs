@@ -20,7 +20,7 @@ namespace proiectVolovici
         public void drawPieces(Graphics g)
         {
         Bitmap bluePawn = new Bitmap(bluePawnImg);
-            Bitmap whitePawn = new Bitmap(whitePawnImg);
+        Bitmap whitePawn = new Bitmap(whitePawnImg);
             whitePawn.MakeTransparent();
             bluePawn.MakeTransparent();
             for (int i = 0; i < 10; i++) {
