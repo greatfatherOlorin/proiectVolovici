@@ -15,10 +15,6 @@ namespace proiectVolovici
         private const int PIECE_HEIGHT = 40;
         Image pawn = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png");
         private int x = 40, y = 40;
-        private int g = 305;
-        private int gx = 305;
-        private int zg = 305;
-        private int gxx = 305;
         public void drawPieces(Graphics g)
         {
         Bitmap pawnBitmap = new Bitmap(pawn);
