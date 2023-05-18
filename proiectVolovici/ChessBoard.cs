@@ -28,16 +28,38 @@ namespace proiectVolovici
         {
             pieces = new Piece[ROW, COLUMN];
 
-            for (int row = 0; row < 2; row++)
+            for (int row = 0; row < 10; row++)
             {
-                for (int col = 0; col <2; col++)
+                for (int col = 0; col <10; col++)
                 {
-                    pieces[row, col] = new Piece
+                    if (row == 1)
                     {
-                        Image = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png"), 
-                        Row = row,
-                        Column = col
-                    };
+
+                        Bitmap bluePawn = new Bitmap(new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png")));
+                        bluePawn.MakeTransparent();
+
+                        pieces[row, col] = new Piece
+                        {
+                            Bitmap = bluePawn,
+                            Row = row,
+                            Column = col
+                        };
+                    }
+                    else if(row == 8)
+                    {
+                        Bitmap whitePawn = new Bitmap(new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png")));
+                        whitePawn.MakeTransparent();
+
+                        pieces[row, col] = new Piece
+                        {
+                            
+                            Bitmap = whitePawn,
+                            Row = row,
+                            Column = col
+                        };
+                       
+                    }
+                    
                 }
             }
         }
@@ -68,7 +90,7 @@ namespace proiectVolovici
                 {
                     int x = piece.Column * WIDTH;
                     int y = piece.Row * HEIGHT;
-                    g.DrawImage(piece.Image, x, y, WIDTH, HEIGHT);
+                    g.DrawImage(piece.Bitmap, x, y, WIDTH, HEIGHT);
                 }
             }
            
@@ -80,6 +102,7 @@ namespace proiectVolovici
         {
             if (selectedPiece == null)
                 return;
+            
             pieces[selectedPiece.Row, selectedPiece.Column] = null;
             selectedPiece.Row = newRow;
             selectedPiece.Column = newColumn;

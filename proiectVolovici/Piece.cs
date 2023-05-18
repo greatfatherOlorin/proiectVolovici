@@ -12,7 +12,7 @@ namespace proiectVolovici
 {
     class Piece
     {
-        public Image Image { get; set; }
+        public Bitmap Bitmap { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
 
