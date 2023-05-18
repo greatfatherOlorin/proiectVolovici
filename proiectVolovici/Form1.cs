@@ -15,7 +15,7 @@ namespace proiectVolovici
     {
         
         private ChessBoard chessBoard;
-
+        bool isSelected = false;
         public Form1()
         {
            
@@ -48,16 +48,21 @@ namespace proiectVolovici
 
             if (e.Button == MouseButtons.Left)
             {
-                chessBoard.selectPiece(clickedRow, clickedColumn);
-                
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                chessBoard.moveSelectedPiece(clickedRow, clickedColumn);
-                
+
+                if (!isSelected)
+                {
+                    isSelected = chessBoard.SelectPiece(clickedRow, clickedColumn);
+                }
+                else
+                {
+                    chessBoard.MoveSelectedPieceTo(clickedRow, clickedColumn);
+                    isSelected = false;
+                }
+                pictureBox1.Invalidate();
             }
 
 
+           
         }
 
 
