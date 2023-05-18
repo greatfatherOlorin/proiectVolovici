@@ -51,11 +51,11 @@ namespace proiectVolovici
 
                 if (!isSelected)
                 {
-                    isSelected = chessBoard.SelectPiece(clickedRow, clickedColumn);
+                    isSelected = chessBoard.selectPiece(clickedRow, clickedColumn);
                 }
                 else
                 {
-                    chessBoard.MoveSelectedPieceTo(clickedRow, clickedColumn);
+                    chessBoard.moveSelectedPieceTo(clickedRow, clickedColumn);
                     isSelected = false;
                 }
                 pictureBox1.Invalidate();

@@ -76,7 +76,7 @@ namespace proiectVolovici
 
         }
 
-        public void MoveSelectedPieceTo(int newRow, int newColumn)
+        public void moveSelectedPieceTo(int newRow, int newColumn)
         {
             if (selectedPiece == null)
                 return;
@@ -89,7 +89,7 @@ namespace proiectVolovici
             chessPictureBox.Invalidate();
         }
 
-        public bool SelectPiece(int row, int column)
+        public bool selectPiece(int row, int column)
         {
             selectedPiece = pieces[row, column];
             return selectedPiece!=null;
