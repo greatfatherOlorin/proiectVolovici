@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace proiectVolovici
 {
@@ -14,69 +15,85 @@ namespace proiectVolovici
         private  int COLUMN = 10;
         private  int WIDTH = 40;
         private  int HEIGHT = 40;
-        Graphics f;
-        private int x=40, y=40;
-        public int getWidth()
-        {
-            return x;
-        }
-        public int getHeight()
-        {
-            return y;
-        }
 
-        public void setWidth(int width)
+        private Piece[,] pieces;
+        private Piece selectedPiece;
+        private PictureBox chessPictureBox;
+        public ChessBoard(PictureBox pictureBox)
         {
-            x = width;
+            chessPictureBox = pictureBox;
+            InitializePieces();
         }
-        public void setHeight(int height)
+        private void InitializePieces()
         {
-            y = height;
-        }
+            pieces = new Piece[ROW, COLUMN];
 
-
-        SolidBrush beigeBrush = new SolidBrush(Color.Beige);
-        SolidBrush aquamarineBrush = new SolidBrush(Color.Aquamarine);
-        Image bluePawnImg = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png");
-        Image whitePawnImg = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png");
-        Image[] img = new Image[10];
-        public void drawBoard(Graphics g)
-        {
-            
-            for (int i = 0; i < ROW; i++)
+            for (int row = 0; row < 2; row++)
             {
-
-      
-                for (int j = 0; j < COLUMN; j++)
+                for (int col = 0; col <2; col++)
                 {
-                    if ((j % 2 == 0 && i % 2 == 0) || (j % 2 != 0 && i % 2 != 0))
-                         g.FillRectangle(beigeBrush, i * WIDTH, j * HEIGHT, WIDTH, HEIGHT);
-                    else if ((j % 2 == 0 && i % 2 != 0) || (j % 2 != 0 && i % 2 == 0))
-                        g.FillRectangle(aquamarineBrush, i * WIDTH, j * HEIGHT, WIDTH, HEIGHT);
+                    pieces[row, col] = new Piece
+                    {
+                        Image = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png"), // Set the image for each piece if needed
+                        Row = row,
+                        Column = col
+                    };
                 }
             }
         }
+     
 
-        public void movePiece(Graphics g)
-        {
-            Bitmap bluePawn = new Bitmap(bluePawnImg);
-            bluePawn.MakeTransparent();
-            g.DrawImage(bluePawn, getWidth(), getHeight(), 40, 40);
+  
 
-          
-        }
-        public void drawPiece(Graphics g)
+        public void drawBoard(Graphics g)
         {
-            Bitmap bluePawn = new Bitmap(bluePawnImg);
-            bluePawn.MakeTransparent();
-            for (int i = 0; i < 10; i++)
+            SolidBrush beigeBrush = new SolidBrush(Color.Beige);
+            SolidBrush aquamarineBrush = new SolidBrush(Color.Aquamarine);
+           
+                for (int i = 0; i < ROW; i++)
+                {
+
+                    for (int j = 0; j < COLUMN; j++)
+                    {
+                        if ((j % 2 == 0 && i % 2 == 0) || (j % 2 != 0 && i % 2 != 0))
+                            g.FillRectangle(beigeBrush, i * WIDTH, j * HEIGHT, WIDTH, HEIGHT);
+                        else if ((j % 2 == 0 && i % 2 != 0) || (j % 2 != 0 && i % 2 == 0))
+                            g.FillRectangle(aquamarineBrush, i * WIDTH, j * HEIGHT, WIDTH, HEIGHT);
+                    }
+                }
+           
+            foreach (Piece piece in pieces)
             {
-                img[i] = bluePawn;
-                g.DrawImage(img[i], WIDTH*i, HEIGHT, 40, 40);
-
-                
-
+                if (piece != null)
+                {
+                    int x = piece.Column * WIDTH;
+                    int y = piece.Row * HEIGHT;
+                    g.DrawImage(piece.Image, x, y, WIDTH, HEIGHT);
+                }
             }
+           
+            
+
         }
+
+        public void moveSelectedPiece(int newRow, int newColumn)
+        {
+            if (selectedPiece == null)
+                return;
+            pieces[selectedPiece.Row, selectedPiece.Column] = null;
+            selectedPiece.Row = newRow;
+            selectedPiece.Column = newColumn;
+            pieces[newRow, newColumn] = selectedPiece;
+            selectedPiece = null;
+
+            chessPictureBox.Invalidate();
+        }
+
+        public void selectPiece(int row, int column)
+        {
+            selectedPiece = pieces[row, column];
+            
+        }
+
     }
 }

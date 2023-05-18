@@ -30,32 +30,37 @@ namespace proiectVolovici
         private void InitializeComponent()
         {
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.boardPanel = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // boardPanel
+            // pictureBox1
             // 
-            this.boardPanel.Location = new System.Drawing.Point(24, 12);
-            this.boardPanel.Name = "boardPanel";
-            this.boardPanel.Size = new System.Drawing.Size(600, 600);
-            this.boardPanel.TabIndex = 0;
-            this.boardPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.boardPanel_Paint);
+            this.pictureBox1.Location = new System.Drawing.Point(18, 10);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(400, 400);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+           
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 661);
-            this.Controls.Add(this.boardPanel);
+            this.ClientSize = new System.Drawing.Size(513, 537);
+            this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Panel boardPanel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

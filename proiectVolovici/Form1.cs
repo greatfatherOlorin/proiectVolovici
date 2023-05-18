@@ -13,72 +13,58 @@ namespace proiectVolovici
 {
     public partial class Form1 : Form
     {
+        
+        private ChessBoard chessBoard;
 
-        ChessBoard board = new ChessBoard();
-        Piece piece = new Piece();
-        Boolean isSelected = false;
-  
         public Form1()
-        { 
-            InitializeComponent();
-            
-            boardPanel.Paint+=new PaintEventHandler(boardPanel_Paint);
-            boardPanel.MouseDown += new MouseEventHandler(boardPanel_MouseDown);
-           
-        }
-
-        private void boardPanel_Paint(object sender, PaintEventArgs e)
         {
+           
+            InitializeComponent();
+            pictureBox1.Paint += pictureBox1_Paint;
+            pictureBox1.MouseDown += pictureBox1_MouseDown;
 
-            board.drawBoard(e.Graphics);
+            chessBoard = new ChessBoard(pictureBox1);
+        }
 
-            board.drawPiece(e.Graphics);
-            board.movePiece(e.Graphics);
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            chessBoard = new ChessBoard(pictureBox1);
+            
+        }
+
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            chessBoard.drawBoard(e.Graphics);
 
         }
 
-      
-
-        private void boardPanel_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             int squareSize = 40;
-            int newx = e.X / squareSize;
-            int newy = e.Y / squareSize;
-           
+            int clickedRow = e.Y / squareSize;
+            int clickedColumn = e.X / squareSize;
+
+
             if (e.Button == MouseButtons.Left)
             {
-                int newXPos = newx * squareSize;
-                int newYPos = newy * squareSize;
-
-                if (isSelected)
-                {
-                    board.setWidth(newXPos);
-                    board.setHeight(newYPos);
-                    isSelected = false;
-                    boardPanel.Invalidate();
-                }
-                else
-                {
-                   
-                    if (board.getWidth() == newXPos && board.getHeight() == newYPos)
-                    {
-                        isSelected = true;
-                    }
-                }
-
-              
+                chessBoard.selectPiece(clickedRow, clickedColumn);
                 
-
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                chessBoard.moveSelectedPiece(clickedRow, clickedColumn);
                 
             }
 
 
-            
-          
         }
 
 
 
+        }
+
+        
     }
-}
+
 
