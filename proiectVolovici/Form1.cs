@@ -55,7 +55,7 @@ namespace proiectVolovici
                 }
                 else
                 {
-                    chessBoard.moveSelectedPieceTo(clickedRow, clickedColumn);
+                    chessBoard.moveSelectedPiece(clickedRow, clickedColumn);
                     isSelected = false;
                 }
                 pictureBox1.Invalidate();

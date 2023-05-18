@@ -34,7 +34,7 @@ namespace proiectVolovici
                 {
                     pieces[row, col] = new Piece
                     {
-                        Image = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png"), // Set the image for each piece if needed
+                        Image = Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\pawn.png"), 
                         Row = row,
                         Column = col
                     };
@@ -76,7 +76,7 @@ namespace proiectVolovici
 
         }
 
-        public void moveSelectedPieceTo(int newRow, int newColumn)
+        public void moveSelectedPiece(int newRow, int newColumn)
         {
             if (selectedPiece == null)
                 return;
