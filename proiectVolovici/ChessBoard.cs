@@ -64,7 +64,6 @@ namespace proiectVolovici
                     {
                         pieces[row, col] = new Piece
                         {
-                            Color = Piece.PieceColor.White,
                             Type = Piece.PieceType.Pawn,
                             Bitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png")),
                             Row = row,

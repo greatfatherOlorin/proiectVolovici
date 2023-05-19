@@ -13,7 +13,6 @@ namespace proiectVolovici
 {
     public partial class Form1 : Form
     {
-        private Piece piece;
         private ChessBoard chessBoard;
         bool isSelected = false;
         public Form1()

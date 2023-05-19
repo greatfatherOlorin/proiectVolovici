@@ -16,7 +16,6 @@ namespace proiectVolovici
         public int Row { get; set; }
         public int Column { get; set; }
         public PieceType Type { get; set; }
-        public PieceColor Color { get; set; }
         public bool HasMoved { get; set; }
         public enum PieceType
         {
@@ -26,11 +25,6 @@ namespace proiectVolovici
             Bishop,
             Queen,
             King
-        }
-        public enum PieceColor
-        {
-            White,
-            Black
         }
     }
 }
