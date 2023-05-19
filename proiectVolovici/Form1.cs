@@ -13,30 +13,26 @@ namespace proiectVolovici
 {
     public partial class Form1 : Form
     {
-        
+        private Piece piece;
         private ChessBoard chessBoard;
         bool isSelected = false;
         public Form1()
         {
-           
             InitializeComponent();
             pictureBox1.Paint += pictureBox1_Paint;
             pictureBox1.MouseDown += pictureBox1_MouseDown;
 
-            chessBoard = new ChessBoard(pictureBox1);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             chessBoard = new ChessBoard(pictureBox1);
-            
         }
 
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             chessBoard.drawBoard(e.Graphics);
-
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -45,31 +41,21 @@ namespace proiectVolovici
             int clickedRow = e.Y / squareSize;
             int clickedColumn = e.X / squareSize;
 
-
             if (e.Button == MouseButtons.Left)
             {
-
                 if (!isSelected)
                 {
                     isSelected = chessBoard.selectPiece(clickedRow, clickedColumn);
                 }
                 else
                 {
-                    chessBoard.moveSelectedPiece(clickedRow, clickedColumn);
-                    isSelected = false;
+                        chessBoard.moveSelectedPiece(chessBoard.SelectedPiece, clickedRow, clickedColumn);
+                        isSelected = false;
+                   }
+                    
                 }
                 pictureBox1.Invalidate();
             }
-
-
-           
         }
 
-
-
-        }
-
-        
-    }
-
-
+}
