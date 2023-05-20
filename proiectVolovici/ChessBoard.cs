@@ -29,8 +29,6 @@ namespace proiectVolovici
         {
             return pieces[row, column];
         }
-
-
         private PictureBox chessPictureBox;
         public ChessBoard(PictureBox pictureBox)
         {
@@ -174,10 +172,10 @@ namespace proiectVolovici
 
             if (currentPiece.Type == Piece.PieceType.Pawn)
             {
-                
+
                 int direction = (currentPiece.Bitmap.Tag.ToString() == "White") ? -1 : 1;
 
-              
+
                 if (newRow < 0 || newRow >= 10 || newColumn < 0 || newColumn >= 10)
                     return false;
 
@@ -190,7 +188,7 @@ namespace proiectVolovici
                         return true;
                     }
                 }
-               
+
                 bool hasMoved = currentPiece.HasMoved;
 
                 // pawns on their starting rank can move two squares forward on the same column
@@ -204,12 +202,12 @@ namespace proiectVolovici
                     // check if the destination is empty and two squares forward, and the pawn hasn't moved before
                     if (!hasMoved && newRow == currentRow + (2 * direction) && pieces[newRow, newColumn] == null && pieces[currentRow + direction, currentColumn] == null)
                     {
-                        
+
                         currentPiece.HasMoved = true;
                         return true;
                     }
                 }
-                // check pawn captures (diagonal movement)
+                // check pawn captures
                 if (Math.Abs(newColumn - currentColumn) == 1 && newRow - currentRow == direction)
                 {
                     // check if there is an opponent's piece at the destination
@@ -218,15 +216,14 @@ namespace proiectVolovici
                         return true;
 
                     // check for en passant captures
-                    Piece lastMovedPiece = (direction == -1) ? pieces[newRow - 1, newColumn] : pieces[newRow + 1, newColumn];
+                    Piece leftPiece = (currentColumn > 0) ? pieces[currentRow, currentColumn - 1] : null;
+                    Piece rightPiece = (currentColumn < 9) ? pieces[currentRow, currentColumn + 1] : null;
 
-                    if (lastMovedPiece != null &&
-                        lastMovedPiece.Type == Piece.PieceType.Pawn &&
-                        lastMovedPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString() &&
-                        Math.Abs(lastMovedPiece.Row - currentRow) == 2 &&
-                        Math.Abs(lastMovedPiece.Column - newColumn) == 1)
+                    if ((leftPiece != null && leftPiece.Type == Piece.PieceType.Pawn && leftPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString() && leftPiece.HasMoved && Math.Abs(leftPiece.Row - newRow) == 1 && leftPiece.Column == newColumn) ||
+                        (rightPiece != null && rightPiece.Type == Piece.PieceType.Pawn && rightPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString() && rightPiece.HasMoved && Math.Abs(rightPiece.Row - newRow) == 1 && rightPiece.Column == newColumn))
                     {
-                        // en passant capture is valid
+                        
+                        pieces[currentRow, newColumn] = null; 
                         return true;
                     }
                 }
