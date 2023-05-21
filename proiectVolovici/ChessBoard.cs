@@ -207,6 +207,9 @@ namespace proiectVolovici
             selectedPiece = pieces[row, column];
             return selectedPiece != null;
         }
+
+     
+
         public bool IsValidMove(int currentRow, int currentColumn, int newRow, int newColumn)
         {
             Piece currentPiece = pieces[currentRow, currentColumn];
@@ -226,12 +229,30 @@ namespace proiectVolovici
                 return IsValidQueenMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
             else if (currentPiece.Type == Piece.PieceType.Arrow)
                 return IsValidArcherMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            else if (currentPiece.Type == Piece.PieceType.King)
+                return IsValidKingMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+
 
 
             return IsValidPieceMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
         }
 
+        public bool IsValidKingMove(Piece currentPiece, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            int rowOffset = Math.Abs(newRow - currentRow);
+            int columnOffset = Math.Abs(newColumn - currentColumn);
 
+            // Check if the move is within one square in any direction
+            if (rowOffset <= 1 && columnOffset <= 1)
+            {
+                // Check if the destination is empty or has an opponent's piece
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString())
+                    return true;
+            }
+
+            return false;
+        }
         public bool IsValidArcherMove(Piece archer, int currentRow, int currentColumn, int newRow, int newColumn)
         {
             int rowOffset = Math.Abs(newRow - currentRow);
