@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace proiectVolovici
@@ -45,180 +40,127 @@ namespace proiectVolovici
             {
                 for (int col = 0; col < 10; col++)
                 {
-                    Bitmap pieceBitmap = null;
 
                     if (row == 1)
                     {
-                        pieces[row, col] = new Piece
-                        {
-                            Type = Piece.PieceType.Pawn,
-                            Bitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\bluePawn.png")),
-                            Row = row,
-                            Column = col
-                        };
-                        pieces[row, col].Bitmap.Tag = "Black";
-                      
+                        InitializePawn(row, col, @"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\bluePawn.png", "Black");
                     }
                     else if (row == 8)
                     {
-                        pieces[row, col] = new Piece
-                        {
-                            Type = Piece.PieceType.Pawn,
-                            Bitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png")),
-                            Row = row,
-                            Column = col
-                        };
-                       
-                        pieces[row, col].Bitmap.Tag = "White";
-                        
+                        InitializePawn(row, col, @"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png", "White");
                     }
-                    if (row == 9)
+                    else if (row == 9)
                     {
-                        if (col == 0 || col == 9)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteRook.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Rook,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 1 || col == 8)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteKnight.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Knight,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 2 || col == 7)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteArrow.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Arrow,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 3 || col == 6)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteBishop.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Bishop,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 4)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteQueen.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Queen,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 5)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteKing.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.King,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        pieces[row, col].Bitmap.Tag = "White";
+                        InitializeWhitePieces(row, col);
                     }
-                    if (row == 0)
+                    else if (row == 0)
                     {
-                        
-                        if (col == 0 || col == 9)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueRook.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Rook,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 1 || col == 8)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueKnight.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Knight,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 2 || col == 7)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueArrow.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Arrow,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 3 || col == 6)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueBishop.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Bishop,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 4)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueQueen.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.Queen,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        if (col == 5)
-                        {
-                            pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueKing.png"));
-                            pieces[row, col] = new Piece
-                            {
-                                Type = Piece.PieceType.King,
-                                Bitmap = pieceBitmap,
-                                Row = row,
-                                Column = col
-                            };
-                        }
-                        pieces[row, col].Bitmap.Tag = "Black";
+                        InitializeBluePieces(row, col);
                     }
                 }
             }
         }
 
+        private void InitializePawn(int row, int col, string imagePath, string tag)
+        {
+            pieces[row, col] = new Piece
+            {
+                Type = Piece.PieceType.Pawn,
+                Bitmap = new Bitmap(Image.FromFile(imagePath)),
+                Row = row,
+                Column = col
+            };
+            pieces[row, col].Bitmap.Tag = tag;
+        }
 
+        private void InitializeWhitePieces(int row, int col)
+        {
+            Bitmap pieceBitmap = null;
+            string tag = "White";
 
+            if (col == 0 || col == 9)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteRook.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Rook, pieceBitmap, row, col);
+            }
+            else if (col == 1 || col == 8)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteKnight.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Knight, pieceBitmap, row, col);
+            }
+            else if (col == 2 || col == 7)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteArrow.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Arrow, pieceBitmap, row, col);
+            }
+            else if (col == 3 || col == 6)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteBishop.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Bishop, pieceBitmap, row, col);
+            }
+            else if (col == 4)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteQueen.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Queen, pieceBitmap, row, col);
+            }
+            else if (col == 5)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteKing.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.King, pieceBitmap, row, col);
+            }
+
+            pieces[row, col].Bitmap.Tag = tag;
+        }
+
+        private void InitializeBluePieces(int row, int col)
+        {
+            Bitmap pieceBitmap = null;
+            string tag = "Blue";
+
+            if (col == 0 || col == 9)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueRook.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Rook, pieceBitmap, row, col);
+            }
+            else if (col == 1 || col == 8)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueKnight.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Knight, pieceBitmap, row, col);
+            }
+            else if (col == 2 || col == 7)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueArrow.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Arrow, pieceBitmap, row, col);
+            }
+            else if (col == 3 || col == 6)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueBishop.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Bishop, pieceBitmap, row, col);
+            }
+            else if (col == 4)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueQueen.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.Queen, pieceBitmap, row, col);
+            }
+            else if (col == 5)
+            {
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueKing.png"));
+                pieces[row, col] = CreatePiece(Piece.PieceType.King, pieceBitmap, row, col);
+            }
+
+            pieces[row, col].Bitmap.Tag = tag;
+        }
+
+        private Piece CreatePiece(Piece.PieceType type, Bitmap bitmap, int row, int col)
+        {
+            return new Piece
+            {
+                Type = type,
+                Bitmap = bitmap,
+                Row = row,
+                Column = col
+            };
+        }
 
         public void drawBoard(Graphics g)
         {
@@ -265,102 +207,159 @@ namespace proiectVolovici
             selectedPiece = pieces[row, column];
             return selectedPiece != null;
         }
-
         public bool IsValidMove(int currentRow, int currentColumn, int newRow, int newColumn)
         {
             Piece currentPiece = pieces[currentRow, currentColumn];
-          
+
             if (currentPiece == null)
                 return false;
 
             if (currentPiece.Type == Piece.PieceType.Pawn)
+                return IsValidPawnMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+
+            return IsValidPieceMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+        }
+
+        private bool IsValidPawnMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            int direction = (pawn.Bitmap.Tag.ToString() == "White") ? -1 : 1;
+
+            if (!IsValidSquare(newRow, newColumn))
+                return false;
+
+            if (IsForwardMove(pawn, currentRow, currentColumn, newRow, newColumn, direction))
             {
-                bool hasMoved = currentPiece.HasMoved;
-                bool hasDoubleStepped = currentPiece.HasDoubleStepped;
-
-                int direction = (currentPiece.Bitmap.Tag.ToString() == "White") ? -1 : 1;
-
-                if (newRow < 0 || newRow >= 10 || newColumn < 0 || newColumn >= 10)
-                    return false;
-
-                // check if the pawn is moving forward or backward
-                if (newColumn == currentColumn && (newRow - currentRow == direction))
+                if (IsEmptySquare(newRow, newColumn))
                 {
-                    if (pieces[newRow, newColumn] == null)
-                    {
-                        
-                        currentPiece.HasMoved = true;
-                        return true;
-                    }
-                }
-
-
-
-                // check for en passant capture
-                if (Math.Abs(newColumn - currentColumn) == 1 && newRow - currentRow == direction)
-                {
-                    // Check if there is an opponent's piece at the destination
-                    Piece destinationPiece = pieces[newRow, newColumn];
-
-                    if (destinationPiece == null)
-                    {
-                        Piece leftPiece = (currentColumn > 0) ? pieces[currentRow, currentColumn - 1] : null;
-                        Piece rightPiece = (currentColumn < (COLUMN - 1)) ? pieces[currentRow, currentColumn + 1] : null;
-
-                        if ((leftPiece != null && leftPiece.Type == Piece.PieceType.Pawn && leftPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString() && leftPiece.Row == currentRow && leftPiece.Column == newColumn && currentRow == (direction == -1 ? 3 : 6)) ||
-                            (rightPiece != null && rightPiece.Type == Piece.PieceType.Pawn && rightPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString() && rightPiece.Row == currentRow && rightPiece.Column == newColumn && currentRow == (direction == -1 ? 3 : 6)))
-                        {
-                            if ((rightPiece != null && rightPiece.HasDoubleStepped) || (leftPiece != null && leftPiece.HasDoubleStepped))
-                            {
-                                pieces[currentRow, newColumn] = null;
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                // pawns on their starting rank can move two squares forward on the same column
-                if (currentRow == (direction == -1 ? ROW - 2 : 1) && currentColumn == newColumn)
-                {
-
-                    // check if the destination is empty
-                    if (newRow == currentRow + (1 * direction) && pieces[newRow, newColumn] == null)
-                    {
-                        // update hasMoved flag
-                        currentPiece.HasDoubleStepped = true;
-                        currentPiece.HasMoved = true;
-                        
-                        return true;
-                    }
-
-                    // check if the destination is empty and two squares forward, and the pawn hasn't moved before
-                    if (!hasDoubleStepped&&!hasMoved && newRow == currentRow + (2 * direction) && pieces[newRow, newColumn] == null && pieces[currentRow + (1 * direction), newColumn] == null)
-                    {
-                        // update hasMoved flag
-                        currentPiece.HasDoubleStepped = true;
-                        currentPiece.HasMoved = true;
-                        return true;
-                    }
-                   
-                }
-
-                // check pawn captures
-                if (Math.Abs(newColumn - currentColumn) == 1 && newRow - currentRow == direction)
-                {
-                    // check if there is an opponent's piece at the destination
-                    Piece destinationPiece = pieces[newRow, newColumn];
-                    if (destinationPiece != null && destinationPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString())
-                        return true;
+                    pawn.HasMoved = true;
+                    return true;
                 }
             }
-            else
+
+            if (IsEnPassantCapture(pawn, currentRow, currentColumn, newRow, newColumn, direction))
+            {
+                pieces[currentRow, newColumn] = null;
+                return true;
+            }
+
+            if (IsDoubleForwardMove(pawn, currentRow, currentColumn, newRow, newColumn, direction))
+            {
+                pawn.HasDoubleStepped = true;
+                pawn.HasMoved = true;
+                return true;
+            }
+
+            if (IsPawnCapture(pawn, currentRow, currentColumn, newRow, newColumn, direction))
+                return true;
+
+            return false;
+        }
+
+        private bool IsForwardMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
+        {
+            return newColumn == currentColumn && (newRow - currentRow == direction);
+        }
+
+        private bool IsEnPassantCapture(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
+        {
+            if (Math.Abs(newColumn - currentColumn) == 1 && newRow - currentRow == direction)
             {
                 Piece destinationPiece = pieces[newRow, newColumn];
-                if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString())
+
+                if (destinationPiece == null)
+                {
+                    Piece leftPiece = GetPieceAt(currentRow, currentColumn - 1);
+                    Piece rightPiece = GetPieceAt(currentRow, currentColumn + 1);
+
+                    if ((leftPiece != null && IsOpponentPawn(leftPiece, pawn, currentRow, newColumn, direction) && IsEnPassantRow(currentRow, direction) && leftPiece.HasDoubleStepped) ||
+                        (rightPiece != null && IsOpponentPawn(rightPiece, pawn, currentRow, newColumn, direction) && IsEnPassantRow(currentRow, direction) && rightPiece.HasDoubleStepped))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsEnPassantRow(int row, int direction)
+        {
+            return row == (direction == -1 ? 3 : 6);
+        }
+
+        private bool IsOpponentPawn(Piece pawn, Piece currentPawn, int currentRow, int newColumn, int direction)
+        {
+            return pawn.Type == Piece.PieceType.Pawn &&
+                   pawn.Bitmap.Tag.ToString() != currentPawn.Bitmap.Tag.ToString() &&
+                   pawn.Row == currentRow &&
+                   pawn.Column == newColumn;
+        }
+
+        private bool IsDoubleForwardMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
+        {
+            if (currentRow == (direction == -1 ? ROW - 2 : 1) && currentColumn == newColumn)
+            {
+                if (newRow == currentRow + (1 * direction) && IsEmptySquare(newRow, newColumn))
+                {
+                    pawn.HasDoubleStepped = true;
+                    pawn.HasMoved = true;
+                    return true;
+                }
+
+                if (!pawn.HasDoubleStepped && !pawn.HasMoved && newRow == currentRow + (2 * direction) &&
+                    IsEmptySquare(newRow, newColumn) && IsEmptySquare(currentRow + (1 * direction), newColumn))
+                {
+                    pawn.HasDoubleStepped = true;
+                    pawn.HasMoved = true;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsPawnCapture(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
+        {
+            if (Math.Abs(newColumn - currentColumn) == 1 && newRow - currentRow == direction)
+            {
+                Piece destinationPiece = GetPieceAt(newRow, newColumn);
+                if (destinationPiece != null && destinationPiece.Bitmap.Tag.ToString() != pawn.Bitmap.Tag.ToString())
                     return true;
             }
 
             return false;
+        }
+
+        private bool IsValidPieceMove(Piece piece, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            Piece destinationPiece = GetPieceAt(newRow, newColumn);
+            if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != piece.Bitmap.Tag.ToString())
+            {
+                if (currentRow != newRow || currentColumn != newColumn)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsEmptySquare(int row, int column)
+        {
+            return GetPieceAt(row, column) == null;
+        }
+
+        private bool IsValidSquare(int row, int column)
+        {
+            return row >= 0 && row < 10 && column >= 0 && column < 10;
+        }
+
+        private Piece GetPieceAt(int row, int column)
+        {
+            if (IsValidSquare(row, column))
+                return pieces[row, column];
+
+            return null;
         }
     }
 }
