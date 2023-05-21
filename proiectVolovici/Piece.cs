@@ -17,6 +17,18 @@ namespace proiectVolovici
         public int Column { get; set; }
         public PieceType Type { get; set; }
         public bool HasMoved { get; set; }
+  
+        public bool HasMovedTwoSquares { get; set; }
+        public bool HasDoubleStepped { get; set; }
+        public int Moves { get; set; }
+        public Piece()
+        {
+
+            HasMoved = false;
+            HasDoubleStepped = false;
+        }
+
+
         public enum PieceType
         {
             Pawn,
@@ -24,7 +36,8 @@ namespace proiectVolovici
             Knight,
             Bishop,
             Queen,
-            King
+            King,
+            Arrow
         }
     }
 }
