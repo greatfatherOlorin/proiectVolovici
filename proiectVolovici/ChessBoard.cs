@@ -43,7 +43,7 @@ namespace proiectVolovici
 
                     if (row == 1)
                     {
-                        InitializePawn(row, col, @"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\bluePawn.png", "Black");
+                        InitializePawn(row, col, @"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\bluePawn.png", "Blue");
                     }
                     else if (row == 8)
                     {
@@ -216,8 +216,142 @@ namespace proiectVolovici
 
             if (currentPiece.Type == Piece.PieceType.Pawn)
                 return IsValidPawnMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            else if (currentPiece.Type == Piece.PieceType.Bishop)
+                return IsValidBishopMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            else if (currentPiece.Type == Piece.PieceType.Rook)
+                return IsValidRookMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            else if (currentPiece.Type == Piece.PieceType.Knight)
+                return IsValidKnightMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            else if (currentPiece.Type == Piece.PieceType.Queen)
+                return IsValidQueenMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            else if (currentPiece.Type == Piece.PieceType.Arrow)
+                return IsValidArcherMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+
 
             return IsValidPieceMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+        }
+
+
+        public bool IsValidArcherMove(Piece archer, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            int rowOffset = Math.Abs(newRow - currentRow);
+            int columnOffset = Math.Abs(newColumn - currentColumn);
+
+            // Check if the archer is moving diagonally
+            if (rowOffset != columnOffset)
+                return false;
+            
+            if (rowOffset != 2)
+                return false;
+
+            // Check for any pieces in the archer's path when moving diagonally
+            int rowDirection = (newRow > currentRow) ? 1 : -1;
+            int columnDirection = (newColumn > currentColumn) ? 1 : -1;
+
+            int row = currentRow + rowDirection;
+            int column = currentColumn + columnDirection;
+            while (row != newRow && column != newColumn)
+            {
+                // Skip checking for obstacles when moving diagonally
+                row += rowDirection;
+                column += columnDirection;
+            }
+
+            // Check if the destination square is empty or has an opponent's piece
+            Piece destinationPiece = pieces[newRow, newColumn];
+            if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != archer.Bitmap.Tag.ToString())
+                return true;
+
+            return false;
+        }
+
+        public bool IsValidQueenMove(Piece currentPiece, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            // Check if the move is a valid combination of rook and bishop moves
+            if (IsValidRookMove(currentPiece, currentRow, currentColumn, newRow, newColumn) || IsValidBishopMove(currentPiece, currentRow, currentColumn, newRow, newColumn))
+            {
+                // Check if the destination is empty or has an opponent's piece
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString())
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool IsValidKnightMove(Piece currentPiece, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            int rowOffset = Math.Abs(newRow - currentRow);
+            int columnOffset = Math.Abs(newColumn - currentColumn);
+
+            // Check if the move follows the L-shape pattern of a knight
+            if ((rowOffset == 2 && columnOffset == 1) || (rowOffset == 1 && columnOffset == 2))
+            {
+                // Check if the destination is empty or has an opponent's piece
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != currentPiece.Bitmap.Tag.ToString())
+                    return true;
+            }
+
+            return false;
+        }
+        public bool IsValidRookMove(Piece currentPiece, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            // Rook can only move horizontally or vertically
+            if (currentRow != newRow && currentColumn != newColumn)
+                return false;
+
+            // Check if the destination is empty or has an opponent's piece
+            Piece destinationPiece = pieces[newRow, newColumn];
+            if (destinationPiece != null && destinationPiece.Bitmap.Tag.ToString() == currentPiece.Bitmap.Tag.ToString())
+                return false;
+
+            // Check for any pieces blocking the path
+            int rowDirection = (newRow - currentRow) / Math.Max(Math.Abs(newRow - currentRow), 1);
+            int columnDirection = (newColumn - currentColumn) / Math.Max(Math.Abs(newColumn - currentColumn), 1);
+
+            int row = currentRow + rowDirection;
+            int column = currentColumn + columnDirection;
+            while (row != newRow || column != newColumn)
+            {
+                if (pieces[row, column] != null)
+                    return false;
+
+                row += rowDirection;
+                column += columnDirection;
+            }
+
+            return true;
+        }
+
+        public bool IsValidBishopMove(Piece bishop, int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            int rowOffset = Math.Abs(newRow - currentRow);
+            int columnOffset = Math.Abs(newColumn - currentColumn);
+
+            // Check if the bishop is moving diagonally
+            if (rowOffset != columnOffset)
+                return false;
+
+            // Check for any pieces in the bishop's path
+            int rowDirection = (newRow > currentRow) ? 1 : -1;
+            int columnDirection = (newColumn > currentColumn) ? 1 : -1;
+
+            for (int i = 1; i < rowOffset; i++)
+            {
+                int row = currentRow + i * rowDirection;
+                int column = currentColumn + i * columnDirection;
+
+                if (pieces[row, column] != null)
+                    return false;
+            }
+
+            // Check if the destination square is empty or has an opponent's piece
+            Piece destinationPiece = pieces[newRow, newColumn];
+            if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != bishop.Bitmap.Tag.ToString())
+                return true;
+
+            return false;
         }
 
         private bool IsValidPawnMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn)
