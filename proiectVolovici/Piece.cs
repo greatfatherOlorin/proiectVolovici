@@ -17,18 +17,26 @@ namespace proiectVolovici
         public int Column { get; set; }
         public PieceType Type { get; set; }
         public bool HasMoved { get; set; }
-  
+     
         public bool HasMovedTwoSquares { get; set; }
         public bool HasDoubleStepped { get; set; }
         public int Moves { get; set; }
+        public bool IsEnPassantVulnerable { get; private set; }
         public Piece()
         {
 
             HasMoved = false;
             HasDoubleStepped = false;
+            IsEnPassantVulnerable = false;
         }
 
-
+        public void SetEnPassantVulnerability(bool isVulnerable)
+        {
+            if (Type == PieceType.Pawn)
+                IsEnPassantVulnerable = isVulnerable;
+            else
+                IsEnPassantVulnerable = false;
+        }
         public enum PieceType
         {
             Pawn,

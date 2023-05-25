@@ -63,6 +63,8 @@ namespace proiectVolovici
 
         private void InitializePawn(int row, int col, string imagePath, string tag)
         {
+
+
             pieces[row, col] = new Piece
             {
                 Type = Piece.PieceType.Pawn,
@@ -166,15 +168,25 @@ namespace proiectVolovici
         {
             SolidBrush beigeBrush = new SolidBrush(Color.Beige);
             SolidBrush aquamarineBrush = new SolidBrush(Color.Aquamarine);
+            SolidBrush redDotBrush = new SolidBrush(Color.Red);
 
             for (int i = 0; i < ROW; i++)
             {
                 for (int j = 0; j < COLUMN; j++)
                 {
+
                     if ((j % 2 == 0 && i % 2 == 0) || (j % 2 != 0 && i % 2 != 0))
                         g.FillRectangle(beigeBrush, i * WIDTH, j * HEIGHT, WIDTH, HEIGHT);
                     else if ((j % 2 == 0 && i % 2 != 0) || (j % 2 != 0 && i % 2 == 0))
                         g.FillRectangle(aquamarineBrush, i * WIDTH, j * HEIGHT, WIDTH, HEIGHT);
+
+                    if (selectedPiece != null && IsValidMove(selectedPiece.Row, selectedPiece.Column, j, i))
+                    {
+                        g.FillEllipse(redDotBrush, i * WIDTH + WIDTH / 2 - 5, j * HEIGHT + HEIGHT / 2 - 5, 10, 10);
+                       
+                    }
+
+
                 }
             }
 
@@ -193,12 +205,15 @@ namespace proiectVolovici
         {
             if (selectedPiece == null)
                 return;
+
             if (IsValidMove(selectedPiece.Row, selectedPiece.Column, newRow, newColumn))
             {
                 pieces[newRow, newColumn] = selectedPiece;
                 pieces[selectedPiece.Row, selectedPiece.Column] = null; // Set the previous position to null
                 selectedPiece.Row = newRow;
                 selectedPiece.Column = newColumn;
+                
+                
             }
         }
 
@@ -234,7 +249,7 @@ namespace proiectVolovici
 
 
 
-            return IsValidPieceMove(currentPiece, currentRow, currentColumn, newRow, newColumn);
+            return false;
         }
 
         public bool IsValidKingMove(Piece currentPiece, int currentRow, int currentColumn, int newRow, int newColumn)
@@ -375,44 +390,69 @@ namespace proiectVolovici
             return false;
         }
 
-        private bool IsValidPawnMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn)
+        public bool IsValidPawnMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn)
         {
-            int direction = (pawn.Bitmap.Tag.ToString() == "White") ? -1 : 1;
+            // Pawns can only move forward by one row (except for the initial 2-square move)
+            int rowOffset = Math.Abs(newRow - currentRow);
+            int columnOffset = Math.Abs(newColumn - currentColumn);
 
-            if (!IsValidSquare(newRow, newColumn))
-                return false;
-
-            if (IsForwardMove(pawn, currentRow, currentColumn, newRow, newColumn, direction))
+            // Check if the pawn is moving forward by one row
+            if (pawn.Bitmap.Tag.ToString() == "Blue" && newRow == currentRow + 1 && columnOffset == 0)
             {
-                if (IsEmptySquare(newRow, newColumn))
+                // Check if the destination square is empty
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece == null)
+                    return true;
+            }
+            else if (pawn.Bitmap.Tag.ToString() == "White" && newRow == currentRow - 1 && columnOffset == 0)
+            {
+                // Check if the destination square is empty
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece == null)
+                    return true;
+            }
+            // Check if the pawn is capturing diagonally
+            else if (pawn.Bitmap.Tag.ToString() == "Blue" && newRow == currentRow + 1 && columnOffset == 1)
+            {
+                // Check if the destination square contains an opponent's piece
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece != null && destinationPiece.Bitmap.Tag.ToString() == "White")
+                    return true;
+            }
+            else if (pawn.Bitmap.Tag.ToString() == "White" && newRow == currentRow - 1 && columnOffset == 1)
+            {
+                // Check if the destination square contains an opponent's piece
+                Piece destinationPiece = pieces[newRow, newColumn];
+                if (destinationPiece != null && destinationPiece.Bitmap.Tag.ToString() == "Blue")
+                    return true;
+            }
+            // Check if the pawn is making the initial 2-square move
+            else if (pawn.Bitmap.Tag.ToString() == "Blue" && currentRow == 1 && newRow == 3 && columnOffset == 0)
+            {
+                // Check if the destination square is empty and the intermediate square is also empty
+                Piece destinationPiece = pieces[newRow, newColumn];
+                Piece intermediatePiece = pieces[currentRow + 1, newColumn];
+                if (destinationPiece == null && intermediatePiece == null)
                 {
-                    pawn.HasMoved = true;
+                    // Mark the pawn as vulnerable to en passant capture
+                    pawn.SetEnPassantVulnerability(true);
+                    return true;
+                }
+            }
+            else if (pawn.Bitmap.Tag.ToString() == "White" && currentRow == 8 && newRow == 6 && columnOffset == 0)
+            {
+                // Check if the destination square is empty and the intermediate square is also empty
+                Piece destinationPiece = pieces[newRow, newColumn];
+                Piece intermediatePiece = pieces[currentRow - 1, newColumn];
+                if (destinationPiece == null && intermediatePiece == null)
+                {
+                    // Mark the pawn as vulnerable to en passant capture
+                    pawn.SetEnPassantVulnerability(true);
                     return true;
                 }
             }
 
-            if (IsEnPassantCapture(pawn, currentRow, currentColumn, newRow, newColumn, direction))
-            {
-                pieces[currentRow, newColumn] = null;
-                return true;
-            }
-
-            if (IsDoubleForwardMove(pawn, currentRow, currentColumn, newRow, newColumn, direction))
-            {
-                pawn.HasDoubleStepped = true;
-                pawn.HasMoved = true;
-                return true;
-            }
-
-            if (IsPawnCapture(pawn, currentRow, currentColumn, newRow, newColumn, direction))
-                return true;
-
             return false;
-        }
-
-        private bool IsForwardMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
-        {
-            return newColumn == currentColumn && (newRow - currentRow == direction);
         }
 
         private bool IsEnPassantCapture(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
@@ -448,60 +488,6 @@ namespace proiectVolovici
                    pawn.Bitmap.Tag.ToString() != currentPawn.Bitmap.Tag.ToString() &&
                    pawn.Row == currentRow &&
                    pawn.Column == newColumn;
-        }
-
-        private bool IsDoubleForwardMove(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
-        {
-            if (currentRow == (direction == -1 ? ROW - 2 : 1) && currentColumn == newColumn)
-            {
-                if (newRow == currentRow + (1 * direction) && IsEmptySquare(newRow, newColumn))
-                {
-                    pawn.HasDoubleStepped = true;
-                    pawn.HasMoved = true;
-                    return true;
-                }
-
-                if (!pawn.HasDoubleStepped && !pawn.HasMoved && newRow == currentRow + (2 * direction) &&
-                    IsEmptySquare(newRow, newColumn) && IsEmptySquare(currentRow + (1 * direction), newColumn))
-                {
-                    pawn.HasDoubleStepped = true;
-                    pawn.HasMoved = true;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private bool IsPawnCapture(Piece pawn, int currentRow, int currentColumn, int newRow, int newColumn, int direction)
-        {
-            if (Math.Abs(newColumn - currentColumn) == 1 && newRow - currentRow == direction)
-            {
-                Piece destinationPiece = GetPieceAt(newRow, newColumn);
-                if (destinationPiece != null && destinationPiece.Bitmap.Tag.ToString() != pawn.Bitmap.Tag.ToString())
-                    return true;
-            }
-
-            return false;
-        }
-
-        private bool IsValidPieceMove(Piece piece, int currentRow, int currentColumn, int newRow, int newColumn)
-        {
-            Piece destinationPiece = GetPieceAt(newRow, newColumn);
-            if (destinationPiece == null || destinationPiece.Bitmap.Tag.ToString() != piece.Bitmap.Tag.ToString())
-            {
-                if (currentRow != newRow || currentColumn != newColumn)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private bool IsEmptySquare(int row, int column)
-        {
-            return GetPieceAt(row, column) == null;
         }
 
         private bool IsValidSquare(int row, int column)
