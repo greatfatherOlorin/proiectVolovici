@@ -13,6 +13,7 @@ namespace proiectVolovici
 {
     public partial class Form1 : Form
     {
+        GameModeForm gameModeForm = new GameModeForm();
         private ChessBoard chessBoard;
         bool isSelected = false;
         public Form1()
@@ -25,7 +26,18 @@ namespace proiectVolovici
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            chessBoard = new ChessBoard(pictureBox1);
+
+            if (gameModeForm.ShowDialog() == DialogResult.OK)
+            {
+                bool isAISelected = gameModeForm.IsAISelected;
+                chessBoard = new ChessBoard(pictureBox1);
+                pictureBox1.Invalidate();
+            }
+            else
+            {
+                Close();
+            }
+
         }
 
 
@@ -50,7 +62,7 @@ namespace proiectVolovici
                 {
                         chessBoard.moveSelectedPiece(chessBoard.SelectedPiece, clickedRow, clickedColumn);
                         isSelected = false;
-                   }
+                }
                     
                 }
                 pictureBox1.Invalidate();
@@ -58,3 +70,4 @@ namespace proiectVolovici
         }
 
 }
+

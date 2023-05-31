@@ -11,14 +11,17 @@ namespace proiectVolovici
         private int COLUMN = 10;
         private int WIDTH = 40;
         private int HEIGHT = 40;
-
+        private string currentTag = "White";
         private Piece[,] pieces;
         private Piece selectedPiece;
+     
         public Piece SelectedPiece
         {
             get { return selectedPiece; }
             set { selectedPiece = value; }
         }
+
+        
 
         public Piece GetPiece(int row, int column)
         {
@@ -27,6 +30,7 @@ namespace proiectVolovici
         private PictureBox chessPictureBox;
         public ChessBoard(PictureBox pictureBox)
         {
+          
             chessPictureBox = pictureBox;
             initializePieces();
         }
@@ -43,11 +47,11 @@ namespace proiectVolovici
 
                     if (row == 1)
                     {
-                        InitializePawn(row, col, @"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\bluePawn.png", "Blue");
+                        InitializePawn(row, col, @"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\bluePawn.png", "Blue");
                     }
                     else if (row == 8)
                     {
-                        InitializePawn(row, col, @"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png", "White");
+                        InitializePawn(row, col, @"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whitePawn.png", "White");
                     }
                     else if (row == 9)
                     {
@@ -82,32 +86,32 @@ namespace proiectVolovici
 
             if (col == 0 || col == 9)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteRook.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whiteRook.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Rook, pieceBitmap, row, col);
             }
             else if (col == 1 || col == 8)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteKnight.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whiteKnight.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Knight, pieceBitmap, row, col);
             }
             else if (col == 2 || col == 7)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteArrow.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whiteArrow.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Arrow, pieceBitmap, row, col);
             }
             else if (col == 3 || col == 6)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteBishop.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whiteBishop.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Bishop, pieceBitmap, row, col);
             }
             else if (col == 4)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteQueen.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whiteQueen.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Queen, pieceBitmap, row, col);
             }
             else if (col == 5)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\whiteKing.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\whiteKing.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.King, pieceBitmap, row, col);
             }
 
@@ -121,32 +125,32 @@ namespace proiectVolovici
 
             if (col == 0 || col == 9)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueRook.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\blueRook.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Rook, pieceBitmap, row, col);
             }
             else if (col == 1 || col == 8)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueKnight.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\blueKnight.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Knight, pieceBitmap, row, col);
             }
             else if (col == 2 || col == 7)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueArrow.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\blueArrow.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Arrow, pieceBitmap, row, col);
             }
             else if (col == 3 || col == 6)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueBishop.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\blueBishop.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Bishop, pieceBitmap, row, col);
             }
             else if (col == 4)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueQueen.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\blueQueen.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.Queen, pieceBitmap, row, col);
             }
             else if (col == 5)
             {
-                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\redfear\source\repos\proiectVolovici\proiectVolovici\Images\blueKing.png"));
+                pieceBitmap = new Bitmap(Image.FromFile(@"C:\Users\ganda\source\repos\proiectVolovici\proiectVolovici\Images\blueKing.png"));
                 pieces[row, col] = CreatePiece(Piece.PieceType.King, pieceBitmap, row, col);
             }
 
@@ -212,15 +216,21 @@ namespace proiectVolovici
                 pieces[selectedPiece.Row, selectedPiece.Column] = null; // Set the previous position to null
                 selectedPiece.Row = newRow;
                 selectedPiece.Column = newColumn;
-                
-                
+                currentTag = currentTag == "White" ? "Blue" : "White";
+
             }
         }
 
         public bool selectPiece(int row, int column)
         {
-            selectedPiece = pieces[row, column];
-            return selectedPiece != null;
+
+            Piece piece = pieces[row, column];
+            if (piece != null && piece.Bitmap.Tag.ToString() == currentTag)
+            {
+                selectedPiece = piece;
+                return true;
+            }
+            return false;
         }
 
      

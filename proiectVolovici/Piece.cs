@@ -22,6 +22,7 @@ namespace proiectVolovici
         public bool HasDoubleStepped { get; set; }
         public int Moves { get; set; }
         public bool IsEnPassantVulnerable { get; private set; }
+        public string CurrentTag { get; set; }
         public Piece()
         {
 
